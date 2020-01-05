@@ -1,7 +1,7 @@
 import Config from 'react-native-config';
-import {servers} from 'util';
+import servers from './servers';
 
-const defaultServer = servers[0];
+const defaultServer: string = servers[0];
 const okapiKey: string = Config.OKAPI_KEY;
 
 const api = {};
