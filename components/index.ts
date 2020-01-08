@@ -1,6 +1,6 @@
-/* screens */
 import MapScreen from './Screens/MapScreen';
-/* Map */
-import {Map} from './Map';
 
-export {MapScreen, Map};
+import Map from './Map/Map';
+import CenterPosition from './Map/CenterPosition';
+
+export {MapScreen, Map, CenterPosition};

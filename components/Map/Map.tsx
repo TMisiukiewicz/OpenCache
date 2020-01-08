@@ -3,6 +3,11 @@ import {View, StyleSheet, Dimensions} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {GeolocationService} from 'services';
 import {MapProps, MapState} from 'propsTypes';
+import CenterPosition from './CenterPosition';
+import {consts, api} from 'util';
+
+const {nearestCaches} = api;
+const {DEFAULT_ZOOM_LEVEL} = consts;
 
 export default class Map extends Component<MapProps, MapState> {
   state: MapState;
@@ -14,6 +19,7 @@ export default class Map extends Component<MapProps, MapState> {
     super(props);
     this.state = {
       locationPermissionGranted: false,
+      userLocation: {},
     };
 
     this.LocationService = new GeolocationService();
@@ -28,9 +34,27 @@ export default class Map extends Component<MapProps, MapState> {
     this.setState({locationPermissionGranted: hasLocationPermission});
   };
 
-  flyToLocation = () => {
-    // console.log(this._map);
-    // this._camera.flyTo([23.0879727, 53.1210511], 2000);
+  flyToUserLocation = async () => {
+    if (this.state.locationPermissionGranted) {
+      const {latitude, longitude} = this.state.userLocation;
+      const params = {
+        center: `${latitude}|${longitude}`,
+      };
+      const nearest = await fetch(nearestCaches(params));
+      console.log(nearest);
+      this._camera.setCamera({
+        centerCoordinate: [longitude, latitude],
+        zoomLevel: DEFAULT_ZOOM_LEVEL,
+        animationDuration: 1000,
+        animationMode: 'flyTo',
+      });
+    }
+  };
+
+  onUserLocationChange = (location: MapboxGL.Location) => {
+    this.setState({
+      userLocation: location.coords,
+    });
   };
 
   render() {
@@ -42,20 +66,23 @@ export default class Map extends Component<MapProps, MapState> {
           }}
           style={styles.map}
           zoomEnabled
-          onDidFinishLoadingMap={this.flyToLocation}
+          onDidFinishLoadingMap={this.flyToUserLocation}
           rotateEnabled={false}
-          userTrackingMode={1}
+          //   userTrackingMode={1}
           logoEnabled={false}>
           <MapboxGL.Camera
             ref={c => {
-              console.log(c);
+              this._camera = c;
             }}
-            zoomLevel={14}
-            followUserLocation
+            zoomLevel={DEFAULT_ZOOM_LEVEL}
+            // followUserLocation
             followUserMode="compass"
           />
-          {this.state.locationPermissionGranted && <MapboxGL.UserLocation />}
+          {this.state.locationPermissionGranted && (
+            <MapboxGL.UserLocation onUpdate={this.onUserLocationChange} />
+          )}
         </MapboxGL.MapView>
+        <CenterPosition onPress={this.flyToUserLocation} />
       </View>
     );
   }
