@@ -1,6 +1,7 @@
 import {RootAction, RootState} from '.';
 import {RetreivalFields} from 'types/apiTypes';
 import {Reducer} from 'redux';
+import {Coordinates} from 'types/generalTypes';
 
 export interface CachesState {
   nearby: CacheList;
@@ -34,7 +35,16 @@ const caches: Reducer<CachesState, RootAction> = (
 
 export const cachesSelectors = {
   selectCaches: (state: RootState) =>
-    state.caches.allIds.map(id => state.caches.nearby[id]),
+    state.caches.allIds.map(id => {
+      const item = state.caches.nearby[id];
+      const splitLocation = item.location.split('|');
+      const coords: Coordinates = {
+        latitude: parseFloat(splitLocation[0]),
+        longitude: parseFloat(splitLocation[1]),
+      };
+
+      return {...item, location: coords};
+    }),
 };
 
 export default caches;

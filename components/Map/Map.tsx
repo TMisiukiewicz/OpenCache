@@ -95,14 +95,12 @@ class Map extends Component<MapProps, MapState> {
           zoomEnabled
           onDidFinishLoadingMap={this.flyToUserLocation}
           rotateEnabled={false}
-          //   userTrackingMode={1}
           logoEnabled={false}>
           <MapboxGL.Camera
             ref={c => {
               this._camera = c;
             }}
             zoomLevel={DEFAULT_ZOOM_LEVEL}
-            // followUserLocation
             followUserMode="compass"
           />
           {this.state.locationPermissionGranted && (
