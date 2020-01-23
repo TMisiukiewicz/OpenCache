@@ -18,9 +18,3 @@ export interface SearchParams {
 export interface RetreivalParams {
   fields?: string;
 }
-
-export interface RetreivalFields {
-  name: string;
-  location: string;
-  type: string;
-}

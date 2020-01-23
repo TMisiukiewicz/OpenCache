@@ -1,5 +1,4 @@
 import {RootAction, RootState} from '.';
-import {RetreivalFields} from 'types/apiTypes';
 import {Reducer} from 'redux';
 import {Coordinates} from 'types/generalTypes';
 
@@ -8,14 +7,40 @@ export interface CachesState {
   allIds: string[];
 }
 
-export interface Cache extends RetreivalFields {}
-
 export type CacheList = {[id: string]: Cache};
 
 const initialState = {
   nearby: {},
   allIds: [],
 };
+
+export interface CacheRetreivalFields {
+  code: string;
+  name: string;
+  location: string;
+  type: CacheTypes;
+  status: CacheStatus;
+}
+
+export interface Cache extends CacheRetreivalFields {}
+
+export enum CacheTypes {
+  Traditional = 'Traditional',
+  Multi = 'Multi',
+  Quiz = 'Quiz',
+  Moving = 'Moving',
+  Virtual = 'Virtual',
+  Webcam = 'Webcam',
+  Event = 'Event',
+  Other = 'Other',
+  Own = 'Own',
+}
+
+export enum CacheStatus {
+  'Available',
+  'Temporary unavailable',
+  'Archived',
+}
 
 const caches: Reducer<CachesState, RootAction> = (
   state = initialState,

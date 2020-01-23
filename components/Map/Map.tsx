@@ -8,7 +8,7 @@ import {consts} from 'util';
 import {store} from 'store';
 import {cachesActions} from 'store/actions';
 import {SearchAndRetreive, SearchParams} from 'types/apiTypes';
-import Annotation from './Annotation';
+import Annotations from './Annotations';
 import {CacheList} from 'store/reducers/caches';
 import {RootState} from 'store/reducers';
 
@@ -63,7 +63,7 @@ class Map extends Component<MapProps, MapState> {
         wrap: false,
         retr_method: 'services/caches/geocaches',
         retr_params: {
-          fields: 'name|location|type',
+          fields: 'name|location|type|code|status',
         },
       };
 
@@ -106,7 +106,7 @@ class Map extends Component<MapProps, MapState> {
           {this.state.locationPermissionGranted && (
             <MapboxGL.UserLocation onUpdate={this.onUserLocationChange} />
           )}
-          <Annotation />
+          <Annotations />
         </MapboxGL.MapView>
         <CenterPosition onPress={this.flyToUserLocation} />
       </View>
