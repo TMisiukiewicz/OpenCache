@@ -1,4 +1,6 @@
 import {PermissionsAndroid, Platform} from 'react-native';
+import {Coordinates} from 'types/generalTypes';
+import MapboxGL from '@react-native-mapbox-gl/maps';
 
 export default class GeolocationService {
   async hasLocationPermission(): Promise<void | boolean> {
@@ -33,5 +35,13 @@ export default class GeolocationService {
     if (!hasGeolocationPermission) {
       return;
     }
+  }
+
+  createCoords(coordsString: string): MapboxGL.Coordinates {
+    const split = coordsString.split('|');
+    return {
+      latitude: parseFloat(split[0]),
+      longitude: parseFloat(split[1]),
+    };
   }
 }

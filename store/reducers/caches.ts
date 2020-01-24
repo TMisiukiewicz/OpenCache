@@ -5,6 +5,7 @@ import {Coordinates} from 'types/generalTypes';
 export interface CachesState {
   nearby: CacheList;
   allIds: string[];
+  selectedId: string | null;
 }
 
 export type CacheList = {[id: string]: Cache};
@@ -12,6 +13,7 @@ export type CacheList = {[id: string]: Cache};
 const initialState = {
   nearby: {},
   allIds: [],
+  selectedId: null,
 };
 
 export interface CacheRetreivalFields {
@@ -20,6 +22,11 @@ export interface CacheRetreivalFields {
   location: string;
   type: CacheTypes;
   status: CacheStatus;
+  owner: any; //TODO: UserInterface
+  difficulty: number;
+  terrain: number;
+  short_description: string;
+  last_found: string;
 }
 
 export interface Cache extends CacheRetreivalFields {}
@@ -52,6 +59,11 @@ const caches: Reducer<CachesState, RootAction> = (
         ...state,
         nearby: action.nearby,
         allIds: Object.keys(action.nearby),
+      };
+    case 'SET_SELECTED_CACHE_ID':
+      return {
+        ...state,
+        selectedId: action.selectedId,
       };
     default:
       return state;

@@ -11,11 +11,13 @@ import {SearchAndRetreive, SearchParams} from 'types/apiTypes';
 import Annotations from './Annotations';
 import {CacheList} from 'store/reducers/caches';
 import {RootState} from 'store/reducers';
+import CacheSheet from '../Cache/CacheSheet';
 
 const {DEFAULT_ZOOM_LEVEL} = consts;
 
 export interface MapProps {
   nearbyCaches: CacheList;
+  selectedCacheId: string;
 }
 export interface MapState {
   locationPermissionGranted: boolean;
@@ -45,6 +47,31 @@ class Map extends Component<MapProps, MapState> {
     this.getLocation();
   }
 
+  componentDidUpdate(prevProps: MapProps) {
+    if (prevProps.selectedCacheId !== this.props.selectedCacheId) {
+      if (this.props.selectedCacheId === null) {
+        this.flyToLocation(this.state.userLocation);
+      } else {
+        const selectedCache = this.props.nearbyCaches[
+          this.props.selectedCacheId
+        ];
+        const cacheLocation = this.LocationService.createCoords(
+          selectedCache.location,
+        );
+        this.flyToLocation(cacheLocation);
+      }
+    }
+  }
+
+  flyToLocation(location: Coordinates): void {
+    this._camera.setCamera({
+      centerCoordinate: [location.longitude, location.latitude],
+      zoomLevel: DEFAULT_ZOOM_LEVEL,
+      animationDuration: 1000,
+      animationMode: 'flyTo',
+    });
+  }
+
   getLocation = async () => {
     const hasLocationPermission = await this.LocationService.hasLocationPermission();
     this.setState({locationPermissionGranted: hasLocationPermission});
@@ -63,7 +90,8 @@ class Map extends Component<MapProps, MapState> {
         wrap: false,
         retr_method: 'services/caches/geocaches',
         retr_params: {
-          fields: 'name|location|type|code|status',
+          fields:
+            'name|location|type|code|status|owner|terrain|difficulty|short_description|last_found',
         },
       };
 
@@ -108,7 +136,12 @@ class Map extends Component<MapProps, MapState> {
           )}
           <Annotations />
         </MapboxGL.MapView>
-        <CenterPosition onPress={this.flyToUserLocation} />
+        {/* <CenterPosition onPress={this.flyToUserLocation} /> */}
+        {this.props.selectedCacheId !== null && (
+          <CacheSheet
+            cache={this.props.nearbyCaches[this.props.selectedCacheId]}
+          />
+        )}
       </View>
     );
   }
@@ -117,6 +150,7 @@ class Map extends Component<MapProps, MapState> {
 const mapStateToProps = (state: RootState) => {
   return {
     nearbyCaches: state.caches.nearby,
+    selectedCacheId: state.caches.selectedId,
   };
 };
 
@@ -124,7 +158,6 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    backgroundColor: '#000',
   },
   map: {
     flex: 1,

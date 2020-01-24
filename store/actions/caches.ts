@@ -6,18 +6,33 @@ import {RootState} from 'store/reducers';
 import {CacheList} from '../reducers/caches';
 
 const SET_NEARBY_CACHES = 'SET_NEARBY_CACHES';
+const SET_SELECTED_CACHE_ID = 'SET_SELECTED_CACHE_ID';
 
 export interface SetNearbyCachesAction
   extends Action<typeof SET_NEARBY_CACHES> {
   nearby: CacheList;
 }
 
-export type CacheAction = SetNearbyCachesAction;
+export interface SetSelectedCacheIdAction
+  extends Action<typeof SET_SELECTED_CACHE_ID> {
+  selectedId: string | null;
+}
+
+export type CacheAction = SetNearbyCachesAction | SetSelectedCacheIdAction;
 
 export function setNearbyCaches(nearby: CacheList): SetNearbyCachesAction {
   return {
     type: SET_NEARBY_CACHES,
     nearby,
+  };
+}
+
+export function setSelectedCacheId(
+  selectedId: string | null,
+): SetSelectedCacheIdAction {
+  return {
+    type: SET_SELECTED_CACHE_ID,
+    selectedId,
   };
 }
 
@@ -27,7 +42,6 @@ export function getNearbyCaches(
   return async dispatch => {
     try {
       const nearestCaches = await makeRequest(api.nearestCaches(params));
-      console.log(nearestCaches);
       dispatch(setNearbyCaches(nearestCaches));
     } catch (e) {
       console.error(e);
