@@ -22,7 +22,9 @@ function CacheSheet({cache}: CacheSheetProps) {
         <Text>Rodzaj skrzynki: {cache.type}</Text>
         <Text>Poziom trudności: {cache.difficulty}</Text>
         <Text>Teren: {cache.terrain}</Text>
-        <Text>Ostatnio znaleziona: {cache.last_found}</Text>
+        <Text>
+          Ostatnio znaleziona: {new Date(cache.last_found).toLocaleString()}
+        </Text>
       </View>
       <View style={styles.buttonContainer}>
         <Button
@@ -68,6 +70,8 @@ const styles = StyleSheet.create({
     height: 250,
     padding: 20,
     backgroundColor: '#fff',
+    borderTopColor: '#b8e994',
+    borderTopWidth: 5,
   },
   panelHeader: {
     alignItems: 'center',
