@@ -1,6 +1,5 @@
 import React from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-import {CacheTypes} from 'store/reducers/caches';
 import {FeatureCollection} from '@turf/helpers/lib/geojson';
 
 const icons = {
@@ -16,20 +15,26 @@ const icons = {
 };
 
 export interface SingleCollectionProps {
-  type: CacheTypes;
+  type: string;
   collection: FeatureCollection;
+  onPress: any;
 }
 
 export default function SingleCollection({
   type,
   collection,
+  onPress,
 }: SingleCollectionProps) {
+  const handleClick = ({payload}) => {
+    onPress(payload.id);
+  };
+
   return (
     <MapboxGL.ShapeSource
       id={type}
       shape={collection}
       hitbox={{width: 44, height: 44}}
-      onPress={e => console.log(e)}>
+      onPress={({nativeEvent}) => handleClick(nativeEvent)}>
       <MapboxGL.SymbolLayer id={type} style={annotationStyle.icon(type)} />
     </MapboxGL.ShapeSource>
   );

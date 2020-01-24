@@ -1,11 +1,13 @@
 import React, {memo} from 'react';
 import {cachesSelectors, CacheTypes} from 'store/reducers/caches';
 import {FeatureCollection, Feature} from '@turf/helpers/lib/geojson';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import SingleCollection from './SingleCollection';
+import {setSelectedCacheId} from 'store/actions/caches';
 
 function Annotations() {
   const caches = useSelector(cachesSelectors.selectCaches);
+  const dispatch = useDispatch();
 
   const collections = Object.keys(CacheTypes).reduce(
     (allCollections: {[index: string]: FeatureCollection}, item) => {
@@ -38,6 +40,7 @@ function Annotations() {
           key={cacheType}
           type={cacheType}
           collection={collections[cacheType]}
+          onPress={(cache: string) => dispatch(setSelectedCacheId(cache))}
         />
       ))}
     </React.Fragment>
