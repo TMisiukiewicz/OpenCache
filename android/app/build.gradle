@@ -1,4 +1,6 @@
 apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 import com.android.build.OutputFile
 
@@ -119,6 +121,8 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def useIntlJsc = false;
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -181,6 +185,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation project(':@react-native-mapbox-gl_maps')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
@@ -188,6 +193,12 @@ dependencies {
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
         implementation jscFlavor
+    }
+
+    if (useIntlJsc) {
+        implementation 'org.webkit:android-jsc-intl:+'
+    } else {
+        implementation 'org.webkit:android-jsc:+'
     }
 }
 
