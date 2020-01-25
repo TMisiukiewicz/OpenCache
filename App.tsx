@@ -7,8 +7,11 @@ import {config} from 'util';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {createAppContainer} from 'react-navigation';
 import theme from './theme';
+import {dictionary} from './dictionary';
 import {IconButton} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
+
+const lang = store.getState().general.lang;
 
 const styles = StyleSheet.create({
   icon: {
@@ -23,7 +26,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
     Map: {
       screen: MapScreen,
       navigationOptions: {
-        title: 'Mapa',
+        title: dictionary.map[lang],
         tabBarIcon: (
           <IconButton icon="map" color="white" size={24} style={styles.icon} />
         ),
@@ -32,7 +35,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
     Caches: {
       screen: MapScreen,
       navigationOptions: {
-        title: 'Skrzynki',
+        title: dictionary.caches[lang],
         tabBarIcon: (
           <IconButton
             icon="inbox"
@@ -46,7 +49,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
     User: {
       screen: MapScreen,
       navigationOptions: {
-        title: 'Konto',
+        title: dictionary.account[lang],
         tabBarIcon: (
           <IconButton
             icon="account"
