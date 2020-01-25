@@ -1,4 +1,10 @@
 {
   "name": "OpenCache",
-  "displayName": "OpenCache"
+  "displayName": "OpenCache",
+  "expo": {
+    "slug": "OpenCache",
+    "name": "OpenCache",
+    "sdkVersion": "36.0.0",
+    "entryPoint": ".vscode\\exponentIndex.js"
+  }
 }
