@@ -4,26 +4,34 @@ import {CacheRetreivalFields} from 'store/reducers/caches';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {Button} from 'react-native-paper';
 import theme from '../../theme';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {generalSelectors} from 'store/reducers/general';
 import {setSelectedCacheId} from 'store/actions/caches';
+import {dictionary} from '../../dictionary';
 
 export interface CacheSheetProps {
   cache: CacheRetreivalFields;
 }
 function CacheSheet({cache}: CacheSheetProps) {
   const dispatch = useDispatch();
+  const lang = useSelector(generalSelectors.getLang);
+
   const renderContent = () => (
     <View style={styles.panel}>
       <Text style={styles.panelTitle}>{cache.name}</Text>
       <Text style={styles.panelSubtitle}>
-        Właściciel: {cache.owner.username}
+        {`${dictionary.owner[lang]}: ${cache.owner.username}`}
       </Text>
       <View style={styles.data}>
-        <Text>Rodzaj skrzynki: {cache.type}</Text>
-        <Text>Poziom trudności: {cache.difficulty}</Text>
-        <Text>Teren: {cache.terrain}</Text>
+        <Text>{`${dictionary.cacheType[lang]}: ${
+          dictionary[cache.type][lang]
+        }`}</Text>
+        <Text>{`${dictionary.difficulty[lang]}: ${cache.difficulty}`}</Text>
+        <Text>{`${dictionary.terrain[lang]}: ${cache.terrain}`}</Text>
         <Text>
-          Ostatnio znaleziona: {new Date(cache.last_found).toLocaleString()}
+          {`${dictionary.lastFound[lang]}: ${new Date(
+            cache.last_found,
+          ).toLocaleString()}`}
         </Text>
       </View>
       <View style={styles.buttonContainer}>
@@ -33,13 +41,13 @@ function CacheSheet({cache}: CacheSheetProps) {
           color={theme.secondaryColor}
           style={styles.button}
           onPress={() => dispatch(setSelectedCacheId(null))}>
-          Zamknij
+          {dictionary.close[lang]}
         </Button>
         <Button
           icon="chevron-double-right"
           mode="contained"
           style={{...styles.button, backgroundColor: theme.secondaryColor}}>
-          Szczegóły
+          {dictionary.details[lang]}
         </Button>
       </View>
     </View>
