@@ -106,6 +106,11 @@ class Map extends Component<MapProps, MapState> {
     }
   };
 
+  loadCachesByBounds = async () => {
+    const bounds = await this._map.getVisibleBounds();
+    store.dispatch(cachesActions.searchAndRetreiveByBounds(bounds));
+  };
+
   onUserLocationChange = (location: MapboxGL.Location) => {
     this.setState({
       userLocation: location.coords,
@@ -122,6 +127,7 @@ class Map extends Component<MapProps, MapState> {
           style={styles.map}
           zoomEnabled
           onDidFinishLoadingMap={this.flyToUserLocation}
+          onRegionDidChange={this.loadCachesByBounds}
           rotateEnabled={false}
           logoEnabled={false}>
           <MapboxGL.Camera

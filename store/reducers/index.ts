@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import caches, {CachesState} from './caches';
 import {CacheAction} from '../actions/caches';
-import general, {GeneralState} from './general';
 import {GeneralAction} from '../actions/general';
+import general, {GeneralState} from './general';
 
 export type RootAction = CacheAction | GeneralAction;
 
