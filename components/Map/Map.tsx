@@ -49,9 +49,7 @@ class Map extends Component<MapProps, MapState> {
 
   componentDidUpdate(prevProps: MapProps) {
     if (prevProps.selectedCacheId !== this.props.selectedCacheId) {
-      if (this.props.selectedCacheId === null) {
-        this.flyToLocation(this.state.userLocation);
-      } else {
+      if (this.props.selectedCacheId !== null) {
         const selectedCache = this.props.nearbyCaches[
           this.props.selectedCacheId
         ];
