@@ -49,9 +49,7 @@ class Map extends Component<MapProps, MapState> {
 
   componentDidUpdate(prevProps: MapProps) {
     if (prevProps.selectedCacheId !== this.props.selectedCacheId) {
-      if (this.props.selectedCacheId === null) {
-        this.flyToLocation(this.state.userLocation);
-      } else {
+      if (this.props.selectedCacheId !== null) {
         const selectedCache = this.props.nearbyCaches[
           this.props.selectedCacheId
         ];
@@ -106,6 +104,11 @@ class Map extends Component<MapProps, MapState> {
     }
   };
 
+  loadCachesByBounds = async () => {
+    const bounds = await this._map.getVisibleBounds();
+    store.dispatch(cachesActions.searchAndRetreiveByBounds(bounds));
+  };
+
   onUserLocationChange = (location: MapboxGL.Location) => {
     this.setState({
       userLocation: location.coords,
@@ -122,6 +125,7 @@ class Map extends Component<MapProps, MapState> {
           style={styles.map}
           zoomEnabled
           onDidFinishLoadingMap={this.flyToUserLocation}
+          onRegionDidChange={this.loadCachesByBounds}
           rotateEnabled={false}
           logoEnabled={false}>
           <MapboxGL.Camera

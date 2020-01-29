@@ -11,6 +11,8 @@ const api = {
     createApiUrl('services/caches/search/nearest', params),
   searchAndRetreiveNearestCaches: (params: SearchAndRetreive) =>
     createApiUrl('services/caches/shortcuts/search_and_retrieve', params),
+  searchAndRetreiveByBounds: (params: SearchAndRetreive) =>
+    createApiUrl('services/caches/shortcuts/search_and_retrieve', params),
 };
 
 const encodeQueryData = (data: any) => {
@@ -26,7 +28,6 @@ const encodeQueryData = (data: any) => {
         ),
     );
   }
-
   return parameters.join('&');
 };
 

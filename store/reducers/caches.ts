@@ -65,6 +65,22 @@ const caches: Reducer<CachesState, RootAction> = (
         ...state,
         selectedId: action.selectedId,
       };
+    case 'SET_CACHES_BY_BOUNDS':
+      return {
+        ...state,
+        nearby: Object.keys(action.byBounds).reduce((allCaches, item) => {
+          if (state.nearby[item] === undefined) {
+            allCaches[item] = action.byBounds[item];
+          }
+          return allCaches;
+        }, state.nearby),
+        allIds: Object.keys(action.byBounds).reduce((allIds, item) => {
+          if (state.allIds.indexOf(item) === -1) {
+            allIds.push(item);
+          }
+          return allIds;
+        }, state.allIds),
+      };
     default:
       return state;
   }
