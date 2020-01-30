@@ -2,7 +2,7 @@ import React from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Provider} from 'react-redux';
 import {store} from 'store';
-import {MapScreen} from 'components';
+import {MapScreen, CacheScreen} from 'components';
 import {config} from 'util';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {createAppContainer} from 'react-navigation';
@@ -10,6 +10,7 @@ import theme from './theme';
 import {dictionary} from './dictionary';
 import {IconButton} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
+import {createStackNavigator} from 'react-navigation-stack';
 
 const lang = store.getState().general.lang;
 
@@ -69,7 +70,17 @@ const BottomNavigation = createMaterialBottomTabNavigator(
   },
 );
 
-const AppContainer = createAppContainer(BottomNavigation);
+const AppNavigator = createStackNavigator(
+  {
+    Bottom: BottomNavigation,
+    Cache: CacheScreen,
+  },
+  {
+    headerMode: 'none',
+  },
+);
+
+const AppContainer = createAppContainer(AppNavigator);
 
 const App = () => {
   MapboxGL.setAccessToken(config.mapToken);

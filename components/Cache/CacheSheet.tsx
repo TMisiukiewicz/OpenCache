@@ -3,16 +3,18 @@ import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import {CacheRetreivalFields} from 'store/reducers/caches';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {Button} from 'react-native-paper';
+import {withNavigation, NavigationInjectedProps} from 'react-navigation';
 import theme from '../../theme';
 import {useDispatch, useSelector} from 'react-redux';
 import {generalSelectors} from 'store/reducers/general';
 import {setSelectedCacheId} from 'store/actions/caches';
 import {dictionary} from '../../dictionary';
 
-export interface CacheSheetProps {
+export interface CacheSheetProps extends NavigationInjectedProps {
   cache: CacheRetreivalFields;
 }
-function CacheSheet({cache}: CacheSheetProps) {
+
+function CacheSheet({cache, navigation}: CacheSheetProps) {
   const dispatch = useDispatch();
   const lang = useSelector(generalSelectors.getLang);
 
@@ -46,7 +48,8 @@ function CacheSheet({cache}: CacheSheetProps) {
         <Button
           icon="chevron-double-right"
           mode="contained"
-          style={{...styles.button, backgroundColor: theme.secondaryColor}}>
+          style={{...styles.button, backgroundColor: theme.secondaryColor}}
+          onPress={() => navigation.navigate('Cache', {code: cache.code})}>
           {dictionary.details[lang]}
         </Button>
       </View>
@@ -114,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(CacheSheet);
+export default memo(withNavigation(CacheSheet));

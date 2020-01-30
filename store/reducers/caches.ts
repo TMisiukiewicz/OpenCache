@@ -98,6 +98,11 @@ export const cachesSelectors = {
 
       return {...item, location: coords};
     }),
+  getSelectedCacheBasicData: (state: RootState) => {
+    if (state.caches.selectedId !== null) {
+      return state.caches.nearby[state.caches.selectedId];
+    }
+  },
 };
 
 export default caches;
