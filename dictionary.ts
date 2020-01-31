@@ -79,4 +79,68 @@ export const dictionary: Dictionary = {
     pl: 'Własna',
     en: 'Own',
   },
+  logs: {
+    pl: 'Logi',
+    en: 'Logs',
+  },
+  photos: {
+    pl: 'Zdjęcia',
+    en: 'Photos',
+  },
+  description: {
+    pl: 'Opis',
+    en: 'Description',
+  },
+  unableToLoad: {
+    pl: 'Nie udało się załadować danych.',
+    en: 'Unable to load data.',
+  },
+  cacheSize: {
+    pl: 'Rozmiar skrzynki',
+    en: 'Cache size',
+  },
+  regular: {
+    pl: 'Normalny',
+    en: 'Regular',
+  },
+  none: {
+    pl: 'Brak',
+    en: 'None',
+  },
+  nano: {
+    pl: 'Nano',
+    en: 'Nano',
+  },
+  micro: {
+    pl: 'Mikro',
+    en: 'Micro',
+  },
+  small: {
+    pl: 'Mały',
+    en: 'Small',
+  },
+  large: {
+    pl: 'Duży',
+    en: 'Large',
+  },
+  xlarge: {
+    pl: 'Bardzo duży',
+    en: 'Extra large',
+  },
+  other: {
+    pl: 'Inny',
+    en: 'Other',
+  },
+  hideDate: {
+    pl: 'Data ukrycia',
+    en: 'Hide date',
+  },
+  creationDate: {
+    pl: 'Data utworzenia',
+    en: 'Creation date',
+  },
+  lastModified: {
+    pl: 'Ostatnio zmodyfikowana',
+    en: 'Last modified',
+  },
 };

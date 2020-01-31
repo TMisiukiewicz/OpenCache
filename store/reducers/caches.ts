@@ -1,19 +1,25 @@
 import {RootAction, RootState} from '.';
 import {Reducer} from 'redux';
 import {Coordinates} from 'types/generalTypes';
+import {FullDetailsResponse} from 'store/actions/caches';
 
 export interface CachesState {
   nearby: CacheList;
   allIds: string[];
   selectedId: string | null;
+  fetching: boolean;
+  selectedCacheDetails: CacheDetails;
 }
 
 export type CacheList = {[id: string]: Cache};
+export type CacheDetails = FullDetailsResponse | null;
 
 const initialState = {
   nearby: {},
   allIds: [],
   selectedId: null,
+  fetching: false,
+  selectedCacheDetails: null,
 };
 
 export interface CacheRetreivalFields {
@@ -54,6 +60,11 @@ const caches: Reducer<CachesState, RootAction> = (
   action,
 ) => {
   switch (action.type) {
+    case 'SET_FETCHING':
+      return {
+        ...state,
+        fetching: action.fetching,
+      };
     case 'SET_NEARBY_CACHES':
       return {
         ...state,
@@ -81,6 +92,11 @@ const caches: Reducer<CachesState, RootAction> = (
           return allIds;
         }, state.allIds),
       };
+    case 'SET_CACHE_DETAILS':
+      return {
+        ...state,
+        selectedCacheDetails: action.selectedCacheDetails,
+      };
     default:
       return state;
   }
@@ -103,6 +119,8 @@ export const cachesSelectors = {
       return state.caches.nearby[state.caches.selectedId];
     }
   },
+  isFetching: (state: RootState) => state.caches.fetching,
+  cacheDetails: (state: RootState) => state.caches.selectedCacheDetails,
 };
 
 export default caches;

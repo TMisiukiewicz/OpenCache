@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {StyleSheet, View, Text, Dimensions} from 'react-native';
-import {CacheRetreivalFields} from 'store/reducers/caches';
+import {Cache} from 'store/reducers/caches';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {Button} from 'react-native-paper';
 import {withNavigation, NavigationInjectedProps} from 'react-navigation';
@@ -11,7 +11,7 @@ import {setSelectedCacheId} from 'store/actions/caches';
 import {dictionary} from '../../dictionary';
 
 export interface CacheSheetProps extends NavigationInjectedProps {
-  cache: CacheRetreivalFields;
+  cache: Cache;
 }
 
 function CacheSheet({cache, navigation}: CacheSheetProps) {
