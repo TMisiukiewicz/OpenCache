@@ -143,4 +143,36 @@ export const dictionary: Dictionary = {
     pl: 'Ostatnio zmodyfikowana',
     en: 'Last modified',
   },
+  basicInformationAboutCache: {
+    pl: 'Podstawowe informacje o skrytce',
+    en: 'Basic information about cache',
+  },
+  cacheStats: {
+    pl: 'Statystyki skrytki',
+    en: 'Cache stats',
+  },
+  founds: {
+    pl: 'Liczba znalezień',
+    en: 'Times found',
+  },
+  notFounds: {
+    pl: 'Nieznaleziono',
+    en: 'Times not found',
+  },
+  recommendations: {
+    pl: 'Rekomendacje',
+    en: 'Recommendations',
+  },
+  rating: {
+    pl: 'Ocena',
+    en: 'Rating',
+  },
+  Available: {
+    pl: 'Dostępna',
+    en: 'Available',
+  },
+  hint: {
+    pl: 'Podpowiedź',
+    en: 'Hint',
+  },
 };

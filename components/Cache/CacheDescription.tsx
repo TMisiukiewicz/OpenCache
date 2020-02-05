@@ -6,6 +6,7 @@ import {generalSelectors} from 'store/reducers/general';
 import {Loader} from 'components';
 import HTMLView from 'react-native-htmlview';
 import {dictionary} from '../../dictionary';
+import Hint from './Hint';
 
 export default function CacheDescription() {
   const fetching = useSelector(cachesSelectors.isFetching);
@@ -28,6 +29,7 @@ export default function CacheDescription() {
                 }</div></body></html>`
           }
         />
+        <Hint cache={cache} lang={lang} />
       </ScrollView>
     );
   }
