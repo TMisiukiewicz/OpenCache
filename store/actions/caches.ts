@@ -3,11 +3,13 @@ import {ThunkAction} from 'redux-thunk';
 import {Action} from 'redux';
 import {SearchAndRetreive} from 'types/apiTypes';
 import {RootState} from 'store/reducers';
-import {CacheList} from '../reducers/caches';
+import {CacheList, FullDetailsParams} from '../reducers/caches';
 
 const SET_NEARBY_CACHES = 'SET_NEARBY_CACHES';
 const SET_SELECTED_CACHE_ID = 'SET_SELECTED_CACHE_ID';
 const SET_CACHES_BY_BOUNDS = 'SET_CACHES_BY_BOUNDS';
+const SET_FETCHING = 'SET_FETCHING';
+const SET_CACHE_DETAILS = 'SET_CACHE_DETAILS';
 
 export interface SetNearbyCachesAction
   extends Action<typeof SET_NEARBY_CACHES> {
@@ -24,10 +26,21 @@ export interface SetCachesByBoundsAction
   byBounds: CacheList;
 }
 
+export interface SetFetchingAction extends Action<typeof SET_FETCHING> {
+  fetching: boolean;
+}
+
+export interface SetCacheDetailsAction
+  extends Action<typeof SET_CACHE_DETAILS> {
+  selectedCacheDetails: any;
+}
+
 export type CacheAction =
   | SetNearbyCachesAction
   | SetSelectedCacheIdAction
-  | SetCachesByBoundsAction;
+  | SetCachesByBoundsAction
+  | SetFetchingAction
+  | SetCacheDetailsAction;
 
 export function setNearbyCaches(nearby: CacheList): SetNearbyCachesAction {
   return {
@@ -49,6 +62,20 @@ export function setSelectedCacheId(
   return {
     type: SET_SELECTED_CACHE_ID,
     selectedId,
+  };
+}
+
+export function setFetching(fetching: boolean): SetFetchingAction {
+  return {
+    type: SET_FETCHING,
+    fetching,
+  };
+}
+
+export function setCacheDetails(details: any): SetCacheDetailsAction {
+  return {
+    type: SET_CACHE_DETAILS,
+    selectedCacheDetails: details,
   };
 }
 
@@ -112,5 +139,37 @@ export function searchAndRetreiveByBounds(
     } catch (e) {
       console.error(e);
     }
+  };
+}
+
+export function getCacheFullDetails(): ThunkAction<
+  void,
+  RootState,
+  undefined,
+  CacheAction
+> {
+  return async (dispatch, getState) => {
+    const {selectedId} = getState().caches;
+    const {lang} = getState().general;
+    dispatch(setFetching(true));
+    if (selectedId === null) {
+      dispatch(setFetching(false));
+      return;
+    }
+
+    const params: FullDetailsParams = {
+      cache_code: selectedId,
+      langpref: lang,
+      fields:
+        'code|name|names|location|type|status|needs_maintenance|url|owner|founds|notfounds|willattends|watchers|size2|difficulty|terrain|trip_time|trip_distance|rating|rating_votes|recommendations|descriptions|hints2|images|attribution_note|oc_team_annotation|latest_logs|trackables_count|trackables|alt_wpts|country2|region|protection_areas|last_found|last_modified|date_created|date_hidden',
+    };
+
+    try {
+      const cacheDetails = await makeRequest(api.getCache(params));
+      dispatch(setCacheDetails(cacheDetails));
+    } catch (e) {
+      console.error(e);
+    }
+    dispatch(setFetching(false));
   };
 }
