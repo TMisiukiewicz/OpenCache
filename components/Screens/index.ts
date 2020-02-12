@@ -1,3 +1,4 @@
 import MapScreen from './MapScreen';
+import CacheScreen from './CacheScreen';
 
-export {MapScreen};
+export {MapScreen, CacheScreen};

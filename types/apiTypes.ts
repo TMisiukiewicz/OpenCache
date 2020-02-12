@@ -12,7 +12,7 @@ export interface SearchParams {
   center?: string;
   status?: string;
   bbox?: string;
-  limit?: string;
+  limit?: number;
 }
 
 export interface RetreivalParams {

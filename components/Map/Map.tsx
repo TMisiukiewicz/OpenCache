@@ -3,7 +3,6 @@ import {View, StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {GeolocationService} from 'services';
-import CenterPosition from './CenterPosition';
 import {consts} from 'util';
 import {store} from 'store';
 import {cachesActions} from 'store/actions';
@@ -12,8 +11,10 @@ import Annotations from './Annotations';
 import {CacheList} from 'store/reducers/caches';
 import {RootState} from 'store/reducers';
 import CacheSheet from '../Cache/CacheSheet';
+import Config from 'react-native-config';
 
 const {DEFAULT_ZOOM_LEVEL} = consts;
+const {MAPBOX_STYLE_URL} = Config;
 
 export interface MapProps {
   nearbyCaches: CacheList;
@@ -49,9 +50,7 @@ class Map extends Component<MapProps, MapState> {
 
   componentDidUpdate(prevProps: MapProps) {
     if (prevProps.selectedCacheId !== this.props.selectedCacheId) {
-      if (this.props.selectedCacheId === null) {
-        this.flyToLocation(this.state.userLocation);
-      } else {
+      if (this.props.selectedCacheId !== null) {
         const selectedCache = this.props.nearbyCaches[
           this.props.selectedCacheId
         ];
@@ -106,6 +105,11 @@ class Map extends Component<MapProps, MapState> {
     }
   };
 
+  loadCachesByBounds = async () => {
+    const bounds = await this._map.getVisibleBounds();
+    store.dispatch(cachesActions.searchAndRetreiveByBounds(bounds));
+  };
+
   onUserLocationChange = (location: MapboxGL.Location) => {
     this.setState({
       userLocation: location.coords,
@@ -120,8 +124,10 @@ class Map extends Component<MapProps, MapState> {
             this._map = c;
           }}
           style={styles.map}
+          styleURL={MAPBOX_STYLE_URL}
           zoomEnabled
           onDidFinishLoadingMap={this.flyToUserLocation}
+          onRegionDidChange={this.loadCachesByBounds}
           rotateEnabled={false}
           logoEnabled={false}>
           <MapboxGL.Camera

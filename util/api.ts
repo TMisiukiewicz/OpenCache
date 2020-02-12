@@ -1,6 +1,7 @@
 import Config from 'react-native-config';
 import servers from './servers';
 import {SearchAndRetreive} from 'types/apiTypes';
+import {FullDetailsParams} from 'store/actions/caches';
 
 const defaultServer: string = servers[0];
 const okapiKey: string = Config.OKAPI_KEY;
@@ -11,6 +12,10 @@ const api = {
     createApiUrl('services/caches/search/nearest', params),
   searchAndRetreiveNearestCaches: (params: SearchAndRetreive) =>
     createApiUrl('services/caches/shortcuts/search_and_retrieve', params),
+  searchAndRetreiveByBounds: (params: SearchAndRetreive) =>
+    createApiUrl('services/caches/shortcuts/search_and_retrieve', params),
+  getCache: (params: FullDetailsParams) =>
+    createApiUrl('services/caches/geocache', params),
 };
 
 const encodeQueryData = (data: any) => {
@@ -26,7 +31,6 @@ const encodeQueryData = (data: any) => {
         ),
     );
   }
-
   return parameters.join('&');
 };
 
