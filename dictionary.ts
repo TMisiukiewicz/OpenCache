@@ -175,4 +175,12 @@ export const dictionary: Dictionary = {
     pl: 'Podpowiedź',
     en: 'Hint',
   },
+  showHint: {
+    pl: 'Pokaż podpowiedź',
+    en: 'Show hint',
+  },
+  hideHint: {
+    pl: 'Ukryj podpowiedź',
+    en: 'Hide hint',
+  },
 };

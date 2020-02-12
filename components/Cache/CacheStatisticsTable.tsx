@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
 import {CacheDetails} from 'store/reducers/caches';
 import {DataTable, Title} from 'react-native-paper';
 import {DictionaryService} from 'services';
+import DataContainer from '../Shared/DataContainer';
 
 const Dictionary = new DictionaryService();
 
@@ -18,9 +18,9 @@ export default function CacheStatisticsTable({
   }
 
   return (
-    <View>
+    <DataContainer>
       <Title>{Dictionary.getText('cacheStats')}</Title>
-      <DataTable style={styles.table}>
+      <DataTable>
         <DataTable.Row>
           <DataTable.Cell>{Dictionary.getText('founds')}</DataTable.Cell>
           <DataTable.Cell>{cache.founds}</DataTable.Cell>
@@ -42,15 +42,6 @@ export default function CacheStatisticsTable({
           <DataTable.Cell>{cache.recommendations}</DataTable.Cell>
         </DataTable.Row>
       </DataTable>
-    </View>
+    </DataContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  table: {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#ecf0f1',
-  },
-});
