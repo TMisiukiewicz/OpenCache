@@ -183,4 +183,12 @@ export const dictionary: Dictionary = {
     pl: 'Ukryj podpowiedź',
     en: 'Hide hint',
   },
+  noLogs: {
+    pl: 'Brak wpisów do logu.',
+    en: 'No logs.',
+  },
+  temporarilyUnavailable: {
+    pl: 'Skrzynka czasowo niedostępna.',
+    en: 'Cache is temporarily unavailable.',
+  },
 };

@@ -160,6 +160,7 @@ export function getCacheFullDetails(): ThunkAction<
     const params: FullDetailsParams = {
       cache_code: selectedId,
       langpref: lang,
+      lpc: 'all',
       fields:
         'code|name|names|location|type|status|needs_maintenance|url|owner|founds|notfounds|willattends|watchers|size2|difficulty|terrain|trip_time|trip_distance|rating|rating_votes|recommendations|descriptions|hints2|images|attribution_note|oc_team_annotation|latest_logs|trackables_count|trackables|alt_wpts|country2|region|protection_areas|last_found|last_modified|date_created|date_hidden',
     };

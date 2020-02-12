@@ -43,7 +43,7 @@ export interface FullDetailsParams {
   attribution_append?: string;
   oc_team_annotation?: string;
   owner_fields?: string;
-  lpc?: number;
+  lpc?: number | string;
   log_fields?: string;
   user_logs_only?: boolean;
   my_location?: string;
