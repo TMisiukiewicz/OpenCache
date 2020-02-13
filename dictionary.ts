@@ -183,4 +183,64 @@ export const dictionary: Dictionary = {
     pl: 'Ukryj podpowiedź',
     en: 'Hide hint',
   },
+  noLogs: {
+    pl: 'Brak wpisów do logu.',
+    en: 'No logs.',
+  },
+  temporarilyUnavailable: {
+    pl: 'Skrzynka czasowo niedostępna.',
+    en: 'Cache is temporarily unavailable.',
+  },
+  'Found it': {
+    pl: 'Znaleziona',
+    en: 'Found it',
+  },
+  'Ready to search': {
+    pl: 'Gotowa do szukania',
+    en: 'Ready to search',
+  },
+  "Didn't find it": {
+    pl: 'Nieznaleziona',
+    en: "Didn't find it",
+  },
+  'Temporarily unavailable': {
+    pl: 'Czasowo niedostępna',
+    en: 'Temporarily unavailable',
+  },
+  'Needs maintenance': {
+    pl: 'Potrzebuje serwisu',
+    en: 'Needs maintenance',
+  },
+  'Maintenance performed': {
+    pl: 'Wykonano serwis',
+    en: 'Maintenance performed',
+  },
+  Comment: {
+    pl: 'Komentarz',
+    en: 'Comment',
+  },
+  'Will attend': {
+    pl: 'Weźmie udział',
+    en: 'Will attend',
+  },
+  Attended: {
+    pl: 'Wziął udział',
+    en: 'Attended',
+  },
+  Archived: {
+    pl: 'Zarchiwizowana',
+    en: 'Archived',
+  },
+  Locked: {
+    pl: 'Zablokowana',
+    en: 'Locked',
+  },
+  Moved: {
+    pl: 'Przeniesiona',
+    en: 'Moved',
+  },
+  'OC Team comment': {
+    pl: 'Komentarz OC',
+    en: 'OC Team comment',
+  },
 };

@@ -1,12 +1,13 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ViewStyle} from 'react-native';
 
 export interface DataContainerProps {
   children: Array<JSX.Element> | JSX.Element;
+  style?: ViewStyle;
 }
 
-export default function DataContainer({children}: DataContainerProps) {
-  return <View style={styles.container}>{children}</View>;
+export default function DataContainer({style, children}: DataContainerProps) {
+  return <View style={{...style, ...styles.container}}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
