@@ -14,8 +14,6 @@ export default function CacheDetails(): JSX.Element {
   const fetching = useSelector(cachesSelectors.isFetching);
   const cache = useSelector(cachesSelectors.cacheDetails);
 
-  console.log(cache);
-
   if (fetching) {
     return <Loader />;
   }

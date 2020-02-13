@@ -1,5 +1,5 @@
 const servers = [
-  'http://opencaching.pl/okapi/',
+  'https://opencaching.pl/okapi/',
   'http://opencaching.de/okapi/',
   'http://opencaching.us/okapi/',
   'http://opencaching.nl/okapi/',
