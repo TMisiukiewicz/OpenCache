@@ -243,4 +243,8 @@ export const dictionary: Dictionary = {
     pl: 'Komentarz OC',
     en: 'OC Team comment',
   },
+  noImages: {
+    pl: 'Brak zdjęć',
+    en: 'No images',
+  },
 };

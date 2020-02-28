@@ -52,6 +52,15 @@ export interface FullDetailsParams {
   callback?: string;
 }
 
+export interface Image {
+  caption: string;
+  is_spoiler: boolean;
+  thumb_url: string;
+  unique_caption: string;
+  url: string;
+  uuid: string;
+}
+
 export interface FullDetailsResponse {
   alt_wpts: Array<any>;
   attribution_note: string;
@@ -65,7 +74,7 @@ export interface FullDetailsResponse {
   founds: number;
   hints: {[lang: string]: string};
   hints2: {[lang: string]: string};
-  images: Array<any>;
+  images: Image[];
   last_found: string;
   last_modified: string;
   latest_logs: any; //TODO: log interface

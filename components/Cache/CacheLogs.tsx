@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text} from 'react-native';
+import {ScrollView, Text, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {cachesSelectors} from 'store/reducers/caches';
 import {Loader} from 'components';
@@ -20,7 +20,7 @@ export default function CacheLogs() {
   console.log(cache);
   if (cache !== null) {
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         {cache.latest_logs.length === 0 && (
           <Text>{Dictionary.getText('noLogs')}</Text>
         )}
@@ -34,3 +34,9 @@ export default function CacheLogs() {
 
   return <Text>{Dictionary.getText('unableToLoad')}</Text>;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 15,
+  },
+});
