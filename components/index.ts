@@ -1,5 +1,6 @@
 import MapScreen from './Screens/MapScreen';
 import CacheScreen from './Screens/CacheScreen';
+import UserScreen from './Screens/UserScreen';
 
 import Map from './Map/Map';
 import CenterPosition from './Map/CenterPosition';
@@ -13,6 +14,8 @@ import CacheImages from './Cache/CacheImages';
 
 import CacheTopbar from './Shared/CacheTopbar';
 import Loader from './Shared/Loader';
+import DataContainer from './Shared/DataContainer';
+import ScreenWrapper from './Shared/ScreenWrapper';
 
 export {
   MapScreen,
@@ -27,4 +30,7 @@ export {
   CacheMenu,
   CacheImages,
   Loader,
+  UserScreen,
+  DataContainer,
+  ScreenWrapper,
 };

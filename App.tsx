@@ -2,7 +2,7 @@ import React from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Provider} from 'react-redux';
 import {store} from 'store';
-import {MapScreen, CacheScreen} from 'components';
+import {MapScreen, CacheScreen, UserScreen} from 'components';
 import {config} from 'util';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {createAppContainer} from 'react-navigation';
@@ -11,6 +11,8 @@ import {dictionary} from './dictionary';
 import {IconButton} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {AfterLogin} from 'components/Screens';
 
 const lang = store.getState().general.lang;
 
@@ -21,6 +23,8 @@ const styles = StyleSheet.create({
     padding: 0,
   },
 });
+
+const deepLinkPrefix = 'opencacheapp://';
 
 const BottomNavigation = createMaterialBottomTabNavigator(
   {
@@ -48,7 +52,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
       },
     },
     User: {
-      screen: MapScreen,
+      screen: UserScreen,
       navigationOptions: {
         title: dictionary.account[lang],
         tabBarIcon: (
@@ -74,6 +78,10 @@ const AppNavigator = createStackNavigator(
   {
     Bottom: BottomNavigation,
     Cache: CacheScreen,
+    AfterLogin: {
+      screen: AfterLogin,
+      path: 'afterLogin',
+    },
   },
   {
     headerMode: 'none',
@@ -82,13 +90,24 @@ const AppNavigator = createStackNavigator(
 
 const AppContainer = createAppContainer(AppNavigator);
 
+const defaultTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: theme.primaryColor,
+    accent: theme.secondaryColor,
+  },
+};
+
 const App = () => {
   MapboxGL.setAccessToken(config.mapToken);
 
   return (
-    <Provider store={store}>
-      <AppContainer />
-    </Provider>
+    <PaperProvider theme={defaultTheme}>
+      <Provider store={store}>
+        <AppContainer uriPrefix={deepLinkPrefix} />
+      </Provider>
+    </PaperProvider>
   );
 };
 

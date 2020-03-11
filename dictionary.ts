@@ -243,4 +243,12 @@ export const dictionary: Dictionary = {
     pl: 'Komentarz OC',
     en: 'OC Team comment',
   },
+  logIn: {
+    pl: 'Zaloguj się',
+    en: 'Log in',
+  },
+  redirectInformation: {
+    pl: 'Zostaniesz przekierowany do zewnętrznej strony w przeglądarce.',
+    en: 'You will be redirected to the page in the browser.',
+  },
 };

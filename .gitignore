@@ -64,3 +64,4 @@ buck-out/
 /ios/Pods/
 
 .env
+requests.http
