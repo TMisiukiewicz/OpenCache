@@ -1,5 +1,4 @@
 import React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
 import {Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {cachesSelectors} from 'store/reducers/caches';
@@ -7,6 +6,7 @@ import {Loader} from 'components';
 import BasicInformationTable from './BasicInformationTable';
 import CacheStatisticsTable from './CacheStatisticsTable';
 import {useDictionary} from 'hooks';
+import {StyledContainer} from 'components/Shared';
 
 export default function CacheDetails(): JSX.Element {
   const dictionary = useDictionary();
@@ -19,21 +19,12 @@ export default function CacheDetails(): JSX.Element {
 
   if (cache !== null) {
     return (
-      <ScrollView style={styles.container}>
+      <StyledContainer>
         <BasicInformationTable cache={cache} />
         <CacheStatisticsTable cache={cache} />
-      </ScrollView>
+      </StyledContainer>
     );
   }
 
   return <Text>{dictionary('unableToLoad')}</Text>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 15,
-    flex: 1,
-  },
-});

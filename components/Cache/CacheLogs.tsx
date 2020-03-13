@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text} from 'react-native';
+import {Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {cachesSelectors} from 'store/reducers/caches';
 import {Loader} from 'components';
@@ -7,6 +7,7 @@ import uuid from 'uuid';
 import SingleLog from './SingleLog';
 import {LogInterface} from 'types/generalTypes';
 import {useDictionary} from 'hooks';
+import {StyledContainer} from 'components/Shared';
 
 export default function CacheLogs() {
   const dictionary = useDictionary();
@@ -19,13 +20,13 @@ export default function CacheLogs() {
   console.log(cache);
   if (cache !== null) {
     return (
-      <ScrollView>
+      <StyledContainer>
         {cache.latest_logs.length === 0 && <Text>{dictionary('noLogs')}</Text>}
         {cache.latest_logs.length > 0 &&
           cache.latest_logs.map((log: LogInterface) => (
             <SingleLog key={uuid.v4()} log={log} />
           ))}
-      </ScrollView>
+      </StyledContainer>
     );
   }
 
