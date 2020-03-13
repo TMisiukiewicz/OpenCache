@@ -4,13 +4,12 @@ import {Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {cachesSelectors} from 'store/reducers/caches';
 import {Loader} from 'components';
-import {DictionaryService} from 'services';
 import BasicInformationTable from './BasicInformationTable';
 import CacheStatisticsTable from './CacheStatisticsTable';
-
-const Dictionary = new DictionaryService();
+import {useDictionary} from 'hooks';
 
 export default function CacheDetails(): JSX.Element {
+  const dictionary = useDictionary();
   const fetching = useSelector(cachesSelectors.isFetching);
   const cache = useSelector(cachesSelectors.cacheDetails);
 
@@ -27,7 +26,7 @@ export default function CacheDetails(): JSX.Element {
     );
   }
 
-  return <Text>{Dictionary.getText('unableToLoad')}</Text>;
+  return <Text>{dictionary('unableToLoad')}</Text>;
 }
 
 const styles = StyleSheet.create({
