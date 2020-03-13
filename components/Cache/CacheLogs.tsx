@@ -3,14 +3,13 @@ import {ScrollView, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import {cachesSelectors} from 'store/reducers/caches';
 import {Loader} from 'components';
-import {DictionaryService} from 'services';
 import uuid from 'uuid';
 import SingleLog from './SingleLog';
 import {LogInterface} from 'types/generalTypes';
-
-const Dictionary = new DictionaryService();
+import {useDictionary} from 'hooks';
 
 export default function CacheLogs() {
+  const dictionary = useDictionary();
   const fetching = useSelector(cachesSelectors.isFetching);
   const cache = useSelector(cachesSelectors.cacheDetails);
 
@@ -21,9 +20,7 @@ export default function CacheLogs() {
   if (cache !== null) {
     return (
       <ScrollView>
-        {cache.latest_logs.length === 0 && (
-          <Text>{Dictionary.getText('noLogs')}</Text>
-        )}
+        {cache.latest_logs.length === 0 && <Text>{dictionary('noLogs')}</Text>}
         {cache.latest_logs.length > 0 &&
           cache.latest_logs.map((log: LogInterface) => (
             <SingleLog key={uuid.v4()} log={log} />
@@ -32,5 +29,5 @@ export default function CacheLogs() {
     );
   }
 
-  return <Text>{Dictionary.getText('unableToLoad')}</Text>;
+  return <Text>{dictionary('unableToLoad')}</Text>;
 }
