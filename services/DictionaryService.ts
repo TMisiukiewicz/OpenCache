@@ -6,4 +6,8 @@ export default class DictionaryService {
     const {lang} = store.getState().general;
     return dictionary[property][lang];
   }
+
+  getTextByLang(lang: string, property: string) {
+    return dictionary[property][lang];
+  }
 }

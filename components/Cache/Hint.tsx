@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Title, Text, Button} from 'react-native-paper';
-import {DictionaryService} from 'services';
 import {CacheDetails} from 'store/reducers/caches';
 import DataContainer from '../Shared/DataContainer';
 import HintTable from './HintTable';
 import {StyleSheet} from 'react-native';
 import theme from '../../theme';
 import {others} from 'util';
+import {useDictionary} from 'hooks';
 
-const Dictionary = new DictionaryService();
 const {lettersPairs} = others;
 export interface HintProps {
   cache: CacheDetails;
@@ -18,6 +17,8 @@ export interface HintProps {
 export default function Hint({cache, lang}: HintProps) {
   const [hidden, setHidden] = useState(true);
   const [hiddenHint, setHiddenHint] = useState('');
+
+  const dictionary = useDictionary();
 
   useEffect(() => {
     const encodeHint = () => {
@@ -38,7 +39,7 @@ export default function Hint({cache, lang}: HintProps) {
 
   return (
     <DataContainer>
-      <Title>{Dictionary.getText('hint')}</Title>
+      <Title>{dictionary('hint')}</Title>
       <Text>{hidden ? hiddenHint : cache.hints2[lang]}</Text>
       <HintTable />
       <Button
@@ -46,7 +47,7 @@ export default function Hint({cache, lang}: HintProps) {
         icon={hidden ? 'eye' : 'eye-off'}
         mode="contained"
         onPress={() => setHidden(!hidden)}>
-        {Dictionary.getText(hidden ? 'showHint' : 'hideHint')}
+        {dictionary(hidden ? 'showHint' : 'hideHint')}
       </Button>
     </DataContainer>
   );

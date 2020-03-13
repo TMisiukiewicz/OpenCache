@@ -5,15 +5,15 @@ import {LogInterface} from 'types/generalTypes';
 import HTMLView from 'react-native-htmlview';
 import theme from '../../theme';
 import moment from 'moment';
-import {DictionaryService} from 'services';
-
-const Dictionary = new DictionaryService();
+import {useDictionary} from 'hooks';
 export interface SingleLogProps {
   log: LogInterface;
 }
 
 export default function SingleLog({log}: SingleLogProps) {
   moment().locale('pl');
+  const dictionary = useDictionary();
+
   let style = styles.default;
   if (log.type === 'Found it' || log.type === 'Ready to search') {
     style = styles.found;
@@ -29,7 +29,7 @@ export default function SingleLog({log}: SingleLogProps) {
   return (
     <DataContainer style={style}>
       <Text style={styles.bold}>
-        {log.user.username} | {Dictionary.getText(log.type)}
+        {log.user.username} | {dictionary(log.type)}
       </Text>
       <View style={styles.separator}>
         <Text>{moment(log.date).format('LLL')}</Text>
