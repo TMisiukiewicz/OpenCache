@@ -12,5 +12,6 @@ export default function StyledContainer({children}: StyledContainerProps) {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    flex: 1,
   },
 });

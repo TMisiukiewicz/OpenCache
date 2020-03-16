@@ -2,7 +2,7 @@ import React from 'react';
 import MapboxGL from '@react-native-mapbox-gl/maps';
 import {Provider} from 'react-redux';
 import {store} from 'store';
-import {MapScreen, CacheScreen} from 'components';
+import {MapScreen, CacheScreen, CachesScreen} from 'components/Screens';
 import {config} from 'util';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import {createAppContainer} from 'react-navigation';
@@ -34,7 +34,7 @@ const BottomNavigation = createMaterialBottomTabNavigator(
       },
     },
     Caches: {
-      screen: MapScreen,
+      screen: CachesScreen,
       navigationOptions: {
         title: dictionary.caches[lang],
         tabBarIcon: (

@@ -243,4 +243,12 @@ export const dictionary: Dictionary = {
     pl: 'Komentarz OC',
     en: 'OC Team comment',
   },
+  nearby: {
+    pl: 'W pobliżu',
+    en: 'Nearby',
+  },
+  saved: {
+    pl: 'Zapisane',
+    en: 'Saved',
+  },
 };

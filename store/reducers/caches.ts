@@ -1,13 +1,14 @@
 import {RootAction, RootState} from '.';
 import {Reducer} from 'redux';
 import {Coordinates} from 'types/generalTypes';
+import MapboxGL from '@react-native-mapbox-gl/maps';
 
 export interface CachesState {
   nearby: CacheList;
   allIds: string[];
   selectedId: string | null;
   fetching: boolean;
-  selectedCacheDetails: CacheDetails;
+  selectedCacheDetails: CacheDetails | null;
 }
 
 export type CacheList = {[id: string]: Cache};
@@ -24,7 +25,7 @@ const initialState = {
 export interface CacheRetreivalFields {
   code: string;
   name: string;
-  location: string;
+  location: string | MapboxGL.Coordinates;
   type: CacheTypes;
   status: CacheStatus;
   owner: any; //TODO: UserInterface
@@ -178,6 +179,7 @@ export const cachesSelectors = {
   },
   isFetching: (state: RootState) => state.caches.fetching,
   cacheDetails: (state: RootState) => state.caches.selectedCacheDetails,
+  nearby: (state: RootState) => state.caches.nearby,
 };
 
 export default caches;

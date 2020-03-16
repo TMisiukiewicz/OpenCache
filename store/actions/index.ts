@@ -1,3 +1,4 @@
 import * as cachesActions from './caches';
+import * as userActions from './user';
 
-export {cachesActions};
+export {cachesActions, userActions};
